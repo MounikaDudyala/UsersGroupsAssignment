@@ -1,5 +1,6 @@
 package com.training.usersandgroups;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Application {
@@ -60,7 +61,6 @@ public class Application {
 			System.out.println("give userId");
 			String id = sc.next();
 			User user = new User(userName, id);
-			//Repository repository = Repository.getInstance();
 			repository.addUser(user);
 			System.out.println("user created");
 
@@ -72,7 +72,6 @@ public class Application {
 			System.out.println("give groupId");
 			String id = sc.next();
 			Group group = new Group(groupName, id);
-			//Repository repository = Repository.getInstance();
 			repository.addGroup(group);
 			System.out.println("group created");
 
@@ -81,7 +80,6 @@ public class Application {
 		public static void removeUser() {
 			System.out.println("give user id you want to remove");
 			String id = sc.next();
-			//Repository repository = Repository.getInstance();
 			repository.removeUser(id);
 	      
 		}
@@ -89,21 +87,18 @@ public class Application {
 		public static void removeGroup() {
 			System.out.println("give group id you want to remove");
 			String id = sc.next();
-			//Repository repository = Repository.getInstance();
 			repository.removeGroup(id);
 		}
 
 		public static void addUserToGroup() {
 			System.out.println("give groupId to which group you wants to add");
 			String id = sc.next();
-			//Repository repository = Repository.getInstance();
 			addingUserToTheGroup(repository.retriveGroup(id));
 		}
 
 		public static void addingUserToTheGroup(Group group) {
 			System.out.println("give user id you want to add to group");
 			String id = sc.next();
-			//Repository repository = Repository.getInstance();
 			 
 			group.addUserToGroup(repository.retriveUser(id));
 			
@@ -113,14 +108,12 @@ public class Application {
 		public static void addGroupToGroup() {
 			System.out.println("give groupId to which group you wants to add");
 			String id = sc.next();
-			//Repository repository = Repository.getInstance();
 			addingGroupToGroup(repository.retriveGroup(id));
 		}
 
 		public static void addingGroupToGroup(Group group) {
 			System.out.println("give Group id you want to add to group");
 			String id = sc.next();
-			//Repository repository = Repository.getInstance();
 			
 			group.addGroupToGroup(repository.retriveGroup(id));
 
@@ -129,28 +122,42 @@ public class Application {
 		public static void removeUserFromGroup() {
 			System.out.println("give Group id you want to remove from it");
 			String id = sc.next();
-			//Repository repository = Repository.getInstance();
 			removingUserFromGroup(repository.retriveGroup(id));
 		}
 
 		public static void removingUserFromGroup(Group group) {
 			System.out.println("give User id you want to remove from a group");
 			String id = sc.next();
-			//Repository repository = Repository.getInstance();
 			 
 			group.removeUserFromGroup(repository.retriveUser(id));
 
 		}
 
 		public static void availableUsers() {
-			//Repository repository = Repository.getInstance();
-
-			repository.retriveUsers();
+			
+			List<User> usersList=repository.retriveUsers();
+			for (User user : usersList)
+				System.out.println(user);
 		}
 
 		public static void availableGroups() {
-			//Repository repository = Repository.getInstance();
-
-			repository.retriveGroups();
+			
+			List<Group> groupsList=repository.retriveGroups();
+			for(Group group:groupsList)
+				System.out.println(group);
+			usersAndGroupsOfGroup();
+		}
+		public static void usersAndGroupsOfGroup() {
+			List<List<String>> list=repository.usersAndGroupsOfGroup();
+			List<String> usersList=list.get(0);
+			List<String> groupsList=list.get(1);
+					
+			 System.out.println("users of this group are");
+			   for (String user : usersList) 
+				System.out.println(user);
+			System.out.println("groups of this group are");
+			for (String group : groupsList) 
+				System.out.println(group);
+			
 		}
 }

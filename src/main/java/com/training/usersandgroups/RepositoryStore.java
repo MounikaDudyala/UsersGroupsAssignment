@@ -8,11 +8,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class RepositoryStore {
 	private static Map<String, User> usersMap = new ConcurrentHashMap<String, User>();
 	private static Map<String, Group> groupMap = new ConcurrentHashMap<String, Group>();
+
 	public RepositoryStore() {
 		super();
 	}
-
-	
 
 	public void addUser(final User user) {
 		usersMap.put(user.uniqueIdentifier(), user);
@@ -59,12 +58,11 @@ public class RepositoryStore {
 		return null;
 	}
 
-	public void retriveUsers() {
+	public List<User> retriveUsers() {
 		List<User> usersList = new ArrayList<User>();
 		for (User user : usersMap.values())
 			usersList.add(user);
-		for (User user : usersList)
-			System.out.println(user);
+		return usersList;
 
 	}
 
@@ -77,8 +75,14 @@ public class RepositoryStore {
 		return null;
 
 	}
-
-	public void retriveGroups() {
+   public List<Group> retriveGroups()
+   {
+	   List<Group> groupsList = new ArrayList<Group>();
+		for (Group group : groupMap.values())
+			groupsList.add(group);
+		return groupsList;
+   }
+	public List<List<String>> usersAndGroupsOfGroup() {
 		List<Group> groupList = new ArrayList<Group>();
 		for (Group group : groupMap.values())
 			groupList.add(group);
@@ -87,30 +91,28 @@ public class RepositoryStore {
 				throw new RuntimeException("group not exist");
 
 			else {
-				System.out.println(group);
+				
+				List<List<String>> list = new ArrayList<List<String>>();
 				List<String> usersList = new ArrayList<String>();
 				List<String> groupsList = new ArrayList<String>();
 				usersList = group.service.usersInTheUsersList();
 				groupsList = group.service.groupsInTheGroupsList();
-				System.out.println("users of this group are");
-				for (String user : usersList) {
-					System.out.println(user);
-				}
-				System.out.println("groups of this group are");
-				for (String groupName : groupsList) {
-					System.out.println(groupName);
-				}
+
+				list.add(usersList);
+				list.add(groupsList);
+				return list;
 			}
 
 		}
 
+		return null;
 	}
-	public int getNoOfUsers()
-	{
+
+	public int getNoOfUsers() {
 		return usersMap.size();
 	}
-	public int getNoOfGroups()
-	{
+
+	public int getNoOfGroups() {
 		return groupMap.size();
 	}
 }
