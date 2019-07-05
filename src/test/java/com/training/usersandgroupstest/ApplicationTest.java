@@ -12,7 +12,7 @@ public class ApplicationTest {
 	@Test
 	public void createUserTest()
 	{   Object obj;
-		
+	
 	}
 
 }
