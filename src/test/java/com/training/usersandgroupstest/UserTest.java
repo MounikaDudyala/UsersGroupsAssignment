@@ -13,7 +13,7 @@ import com.training.usersandgroups.RepositoryStore;
 import com.training.usersandgroups.User;
 
 public class UserTest {
-
+	User user=new User("mounika","100");
 	@Test
 	public void fieldNames_Are_Correct()
 	{   User user=new User();
@@ -29,7 +29,7 @@ public class UserTest {
 	@Test
 	public void getUserTest()
 	{
-		User user=new User("mounika","101");
+		
 		assertEquals("mounika",user.getUser());
 		System.out.println("get user method tetsed correctly");
 		
@@ -37,33 +37,9 @@ public class UserTest {
 	@Test
 	public void UniqueIdentifierTest()
 	{
-		User user=new User("mounika","101");
-		assertEquals("101",user.uniqueIdentifier());
+		
+		assertEquals("100",user.uniqueIdentifier());
 		System.out.println("get uniqueIdentifier method tested correctly");
 	}
-	@Test
-	public void addUserTest()
-	{
-		RepositoryStore repo=new RepositoryStore();
-		User user1=new User("user1","100");
-		User user2=new User("user2","101");
-		repo.addUser(user1);
-		repo.addUser(user2);
-		assertEquals(2,repo.getNoOfUsers());
-		System.out.println("add user method verified correctly");
-	}
-	@Test
-	public void removeUserTest()
-	{
-		RepositoryStore repo=new RepositoryStore();
-		User user1=new User("user1","100");
-		User user2=new User("user2","101");
-		repo.addUser(user1);
-		repo.addUser(user2);
-		repo.removeUser(user1.uniqueIdentifier());
-		assertEquals(1,repo.getNoOfUsers());
-		System.out.println("remove user method verified correctly");
-	}
-	
 
 }

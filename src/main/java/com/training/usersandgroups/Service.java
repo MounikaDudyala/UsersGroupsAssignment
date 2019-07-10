@@ -7,11 +7,17 @@ import java.util.List;
 public class Service {
 	private List<User> users = new ArrayList<User>();
 	private List<Group> groups = new ArrayList<Group>();
+	RepositoryStore repo=new RepositoryStore();
 
 	public void addUserToGroup(User user) {
-
-		users.add(user);
-
+		if (user == null)
+			throw new RuntimeException("user not exist");
+		else
+		{  List<User> usersList=repo.retriveUsers();
+		     if(usersList.contains(user))
+			 users.add(user);
+		     
+		}
 	}
 
 	public void removeUserFromGroup(User user) {
